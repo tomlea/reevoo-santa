@@ -3,6 +3,9 @@
     <% @recent_posts.each do |rp| %>
     <li>
       <acronym title="<%= rp.created_at %>"><%= time_ago_in_words rp.created_at %> ago</acronym>
+      <% if rp.name.present? %>
+        - from <span><%= h rp.name %></span>
+      <% end %>
       <q title="from <%= rp.source_ip %>"><%= h rp.message %></q>
     </li>
     <% end %>
