@@ -3,6 +3,7 @@ class SantaController < ApplicationController
     if msg = params[:q]
       if msg.length <= 160
         RecentPost.create!(:message => msg, :source_ip => request.remote_ip, :name => params[:name])
+        cookies[:name] = params[:name]
         nabaztag.say!(params[:q])
         flash[:notice] = "Message sent. Ho ho ho."
       else
@@ -13,6 +14,7 @@ class SantaController < ApplicationController
   end
 
   def index
+    @name = cookies[:name]
     @recent_posts = RecentPost.scoped(:order => "created_at").last(10).reverse
   end
 
