@@ -14,9 +14,11 @@
 
 <div id="form">
   <% form_tag :action => :say do %>
-    <input name="name" id="your-name" maxlength="30"/>
-    <input name="q" id="say-box" maxlength="160"/>
     <%= submit_tag "Say" %>
+    <input name="q" id="say-box" maxlength="160"/>
+    <div id="from">
+      from: <input name="name" id="your-name" maxlength="30" value="<%= h @name %>"/> (optional)
+    </div>
   <% end %>
 
   <div id="links">
