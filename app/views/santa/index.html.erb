@@ -16,12 +16,12 @@
   <% end %>
 
   <div id="links">
-    <%= link_to "ho ho ho", :action => :say, :q => "Ho... ho... ho" %>
+    <%= link_to_function "ho ho ho", "$('#say-box').val('Ho... ho... ho');" %>
     |
-    <%= link_to "Edwin.... Edwin!", :action => :say, :q => "Edwin.... Edwin!" %>
+    <%= link_to_function "Edwin.... Edwin!", "$('#say-box').val('Edwin.... Edwin!');" %>
     |
-    <%= link_to "I've deployed some stuff to QA", :action => :say, :q => "I've deployed some stuff to Que A............. please sign it off." %>
+    <%= link_to_function "I've deployed some stuff to QA", "$('#say-box').val(\"I've deployed some stuff to Q A............. please sign it off.\");" %>
     |
-    <%= link_to "I'm Bondage Santa", :action => :say, :q => "I'm Bondage Santa............ have you been naughty or nice............. I've been very naughty" %>
+    <%= link_to_function "I'm Bondage Santa", "$('#say-box').val(\"I'm Bondage Santa............ have you been naughty or nice............. I've been very naughty\");" %>
   </div>
 </div>
