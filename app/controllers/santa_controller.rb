@@ -15,7 +15,7 @@ class SantaController < ApplicationController
 
   def index
     @name = cookies[:name]
-    @recent_posts = RecentPost.scoped(:order => "created_at").last(10).reverse
+    @recent_posts = RecentPost.scoped(:order => "created_at").last(20).reverse
   end
 
   def nabaztag
