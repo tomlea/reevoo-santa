@@ -1,0 +1,27 @@
+<div id="recent-posts">
+  <ul id="recents">
+    <% @recent_posts.each do |rp| %>
+    <li>
+      <acronym title="<%= rp.created_at %>"><%= time_ago_in_words rp.created_at %> ago</acronym>
+      <q title="from <%= rp.source_ip %>"><%= h rp.message %></q>
+    </li>
+    <% end %>
+  </ul>
+</div>
+
+<div id="form">
+  <% form_tag :action => :say do %>
+    <input name="q" id="say-box" maxlength="160"/>
+    <%= submit_tag "Say" %>
+  <% end %>
+
+  <div id="links">
+    <%= link_to "ho ho ho", :action => :say, :q => "Ho... ho... ho" %>
+    |
+    <%= link_to "Edwin.... Edwin!", :action => :say, :q => "Edwin.... Edwin!" %>
+    |
+    <%= link_to "I've deployed some stuff to QA", :action => :say, :q => "I've deployed some stuff to Que A............. please sign it off." %>
+    |
+    <%= link_to "I'm Bondage Santa", :action => :say, :q => "I'm Bondage Santa............ have you been naughty or nice............. I've been very naughty" %>
+  </div>
+</div>

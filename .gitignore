@@ -1,0 +1,7 @@
+log/development.log
+log/production.log
+log/server.log
+log/test.log
+.DS_Store
+db/development.sqlite3
+db/schema.rb

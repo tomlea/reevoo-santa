@@ -1,0 +1,22 @@
+class SantaController < ApplicationController
+  def say
+    if msg = params[:q]
+      if msg.length <= 160
+        RecentPost.create!(:message => msg, :source_ip => request.remote_ip)
+        nabaztag.say!(params[:q])
+        flash[:notice] = "Message sent. Ho ho ho."
+      else
+        flash[:notice] = "Message too long. Ho ho ho."
+      end
+    end
+    redirect_to root_path
+  end
+
+  def index
+    @recent_posts = RecentPost.scoped(:order => "created_at").last(10).reverse
+  end
+
+  def nabaztag
+    @nabaztag ||= Nabaztag.new(ENV["Nabaztag_Serial"], ENV["Nabaztag_Key"]).tap{|n| n.voice = "UK-Leonard" }
+  end
+end
