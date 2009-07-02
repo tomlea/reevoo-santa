@@ -2,7 +2,7 @@ class SantaController < ApplicationController
   def say
     if msg = params[:q]
       if msg.length <= 160
-        RecentPost.create!(:message => msg, :source_ip => request.remote_ip)
+        RecentPost.create!(:message => msg, :source_ip => request.remote_ip, :name => params[:name])
         nabaztag.say!(params[:q])
         flash[:notice] = "Message sent. Ho ho ho."
       else
