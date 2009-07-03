@@ -7,6 +7,11 @@
         - from <span><%= h rp.name %></span>
       <% end %>
       <q title="from <%= rp.source_ip %>"><%= h rp.message %></q>
+      <% if rp.source_ip =~ /^212\.23\.9/ %>
+        (Zen Office IP)
+      <% elsif rp.source_ip =~ /^82\.23\.49\.163|^94\.195\.195\.22/ %>
+        (<a href="http://www.reevoo.com">Reevoo Office IP</a>)
+      <% end %>
     </li>
     <% end %>
   </ul>
