@@ -1,7 +1,9 @@
 class SantaController < ApplicationController
   def say
     if msg = params[:q]
-      if msg.length <= 160
+      if msg.blank?
+        flash[:notice] = "Message is clearly not optional. Ho ho ho."
+      elsif msg.length <= 160
         RecentPost.create!(:message => msg, :source_ip => request.remote_ip, :name => params[:name])
         cookies[:name] = params[:name]
         nabaztag.say!(params[:q])
