@@ -3,11 +3,10 @@ class SantaController < ApplicationController
     return preview if params[:preview]
     cookies[:name] = params[:name]
     validate_message(params[:q]) do |msg|
-      preview_url = nabaztag.preview_say!(msg)
       RecentPost.create!(:message => msg, :source_ip => request.remote_ip, :name => params[:name])
       nabaztag.say!(msg)
       flash[:notice] = "Santa says “#{msg}”"
-      flash[:preview_url] = preview_url
+      flash[:preview_url] = nabaztag.preview_say!(msg)
     end
     redirect_to root_path
   end
@@ -15,10 +14,13 @@ class SantaController < ApplicationController
   def preview
     cookies[:name] = params[:name]
     validate_message(params[:q]) do |msg|
-      preview_url = nabaztag.preview_say!(msg)
-      flash[:preview_url] = preview_url
+      flash[:preview_url] = nabaztag.preview_say!(msg)
     end
-    redirect_to root_path
+
+    respond_to do |wants|
+      wants.html{ redirect_to root_path }
+      wants.json{ render :json => flash.delete(:preview_url)}
+    end
   end
 
   def index
