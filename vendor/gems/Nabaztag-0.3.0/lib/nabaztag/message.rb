@@ -10,7 +10,7 @@ class Nabaztag
     API_URI = 'http://api.nabaztag.com/vl/FR/api.jsp?'
     FIELDS = [
       :idmessage, :posright, :posleft, :idapp, :tts, :chor, :chortitle, :ears, :nabcast, 
-      :ttlive, :voice, :speed, :pitch
+      :ttlive, :voice, :speed, :pitch, :action
     ]
 
     FIELDS.each do |field|

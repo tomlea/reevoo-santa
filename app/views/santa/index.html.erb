@@ -20,10 +20,25 @@
 <div id="form">
   <% form_tag :action => :say do %>
     <%= submit_tag "Say" %>
+    <%= submit_tag "Preview", :name => :preview %>
     <input name="q" id="say-box" maxlength="160"/>
     <div id="from">
       from: <input name="name" id="your-name" maxlength="30" value="<%= h @name %>"/> (optional)
     </div>
+  <% end %>
+
+  <% if flash[:preview_url] %>
+    <script type="text/javascript" charset="utf-8">
+      soundManager.onload = function() {
+        // SM2 is ready to go!
+        var mySound = soundManager.createSound({
+          id: 'last_post',
+          url: <%= flash[:preview_url].to_json %>,
+          volume: 50
+        });
+        mySound.play();
+      }
+    </script>
   <% end %>
 
   <div id="links">

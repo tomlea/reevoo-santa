@@ -31,6 +31,11 @@ class Nabaztag
       lookup('/rsp/comment')
     end
     
+    def mp3_preview_url
+      path = XPath.match(@doc, '/rsp/comment/embed/@flashvars').first.value.to_s.split(",").last
+      "http://r.nabaztag.com/" + path
+    end
+    
     def left_ear
       position = lookup('/rsp/leftposition').first
       position && position.to_i

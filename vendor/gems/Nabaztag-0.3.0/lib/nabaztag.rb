@@ -96,6 +96,12 @@ class Nabaztag
     nil
   end
 
+  def preview_say!(text)
+    message.tts = text
+    message.action = 1
+    send.mp3_preview_url
+  end
+
   #
   # Say text immediately.
   #
