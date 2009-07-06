@@ -24,7 +24,9 @@ class SantaController < ApplicationController
   end
 
   def does_baywatch
-    nabaztag.play!(root_url + "sounds/baywatch.mp3")
+    nabaztag.play!(baywatch)
+    flash[:preview_url] = baywatch
+    flash[:notice] = "Santa does indeed do “Baywatch”"
     redirect_to root_path
   end
 
@@ -33,6 +35,10 @@ class SantaController < ApplicationController
     @recent_posts = RecentPost.scoped(:order => "created_at").last(20).reverse
   end
 private
+  def baywatch
+    root_url + "sounds/baywatch.mp3"
+  end
+
   def validate_message(msg)
     if msg.blank?
       flash[:notice] = "Message is clearly not optional. Ho ho ho."
