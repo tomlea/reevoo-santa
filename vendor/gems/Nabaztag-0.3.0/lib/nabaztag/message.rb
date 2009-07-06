@@ -8,9 +8,10 @@ class Nabaztag
 
     SERVICE_ENCODING = 'iso-8859-1'
     API_URI = 'http://api.nabaztag.com/vl/FR/api.jsp?'
+    API_STREAM_URI = 'http://api.nabaztag.com/vl/FR/api_stream.jsp?'
     FIELDS = [
       :idmessage, :posright, :posleft, :idapp, :tts, :chor, :chortitle, :ears, :nabcast, 
-      :ttlive, :voice, :speed, :pitch, :action
+      :ttlive, :voice, :speed, :pitch, :action, :urlList
     ]
 
     FIELDS.each do |field|
@@ -19,10 +20,15 @@ class Nabaztag
 
     def initialize(mac, token)
       @mac, @token = mac, token
+      @urlList = []
+      def @urlList.to_s
+        join("|")
+      end
       @expected_identifiers = []
     end
     
     def send
+      p :calling => request_uri
       Response.new(open(request_uri){ |io| io.read })
     end
     
@@ -33,7 +39,8 @@ class Nabaztag
   private
 
     def request_uri
-      API_URI + parameters.sort_by{ |k,v| k.to_s }.map{ |k,v|
+      api_uri = if @urlList.any? then API_STREAM_URI else API_URI end
+      api_uri + parameters.sort_by{ |k,v| k.to_s }.map{ |k,v|
         value = CGI.escape(encode_text(v.to_s))
         "#{k}=#{value}"
       }.join('&')

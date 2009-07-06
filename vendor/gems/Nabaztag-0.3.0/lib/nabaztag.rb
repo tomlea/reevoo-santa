@@ -110,6 +110,12 @@ class Nabaztag
     send
   end
 
+  def play!(url)
+    message.urlList << url
+    send
+    nil
+  end
+
   #
   # Make the rabbit bark.
   #

@@ -23,6 +23,11 @@ class SantaController < ApplicationController
     end
   end
 
+  def does_baywatch
+    nabaztag.play!(root_url + "sounds/baywatch.mp3")
+    redirect_to root_path
+  end
+
   def index
     @name = cookies[:name]
     @recent_posts = RecentPost.scoped(:order => "created_at").last(20).reverse
