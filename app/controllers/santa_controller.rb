@@ -23,10 +23,16 @@ class SantaController < ApplicationController
     end
   end
 
-  def does_baywatch
-    nabaztag.play!(baywatch)
-    flash[:preview_url] = baywatch
-    flash[:notice] = "Santa does indeed do “Baywatch”"
+  MP3s = {
+    :baywatch => "http://santa.reevoo.com/sounds/baywatch.mp3",
+    :ateam => "http://twaud.io/audio/TR"
+  }
+
+  def does
+    raise ActiveRecord::RecordNotFound unless choon = MP3s[params[:choon].to_sym]
+    nabaztag.play!(choon)
+    flash[:preview_url] = choon
+    flash[:notice] = "Santa does indeed do “#{params[:choon].to_s.titleize}”"
     redirect_to root_path
   end
 
